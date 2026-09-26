@@ -1,0 +1,62 @@
+workflows:
+  appointment_request:
+    trigger:
+      type: form_submission
+      form: appointment
+
+    steps:
+      - validate:
+          required:
+            - name
+            - phone
+            - preferred_date
+            - preferred_time
+
+      - create_lead:
+          status: new
+
+      - notify_clinic:
+          channel: email
+
+      - show_confirmation:
+          message: "Your appointment request has been received. The clinic will contact you to confirm the appointment."
+
+  callback_request:
+    trigger:
+      type: form_submission
+      form: callback
+
+    steps:
+      - validate:
+          required:
+            - name
+            - phone
+
+      - create_lead:
+          status: callback_requested
+
+      - notify_clinic:
+          channel: email
+
+  contact_form:
+    trigger:
+      type: form_submission
+      form: contact
+
+    steps:
+      - validate:
+          required:
+            - name
+            - email
+            - message
+
+      - create_lead:
+          status: contact_request
+
+      - notify_clinic:
+          channel: email
+
+rules:
+  - Do not claim an appointment is confirmed unless the clinic actually confirms it.
+  - Failed notifications must not silently discard the lead.
+  - Form submissions must be validated server-side.

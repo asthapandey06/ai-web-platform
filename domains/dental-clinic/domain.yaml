@@ -1,0 +1,61 @@
+domain:
+  id: dental-clinic
+  name: Dental Clinic
+  version: 1
+
+business:
+  type: local_service
+  primary_goal: generate_appointment_leads
+
+audience:
+  - new_patients
+  - existing_patients
+  - people_researching_dental_services
+
+primary_actions:
+  - book_appointment
+  - request_callback
+  - call_clinic
+  - get_directions
+
+content:
+  required:
+    - clinic_name
+    - clinic_description
+    - services
+    - doctors
+    - opening_hours
+    - location
+    - contact_information
+
+pages:
+  required:
+    - home
+    - services
+    - about
+    - contact
+    - appointment
+
+trust:
+  recommended:
+    - doctor_credentials
+    - testimonials
+    - clinic_photos
+    - certifications
+    - insurance_information
+    - faq
+
+automation:
+  lead_capture: true
+  appointment_request: true
+  clinic_notification: true
+
+seo:
+  local_business: true
+  schema_type: Dentist
+
+constraints:
+  - Do not invent doctors, credentials, reviews, pricing, certifications,
+    addresses, opening hours, or medical claims.
+  - Use placeholders when client-specific information is unavailable.
+  - Keep medical information informational and non-diagnostic.

@@ -1,0 +1,64 @@
+pages:
+  home:
+    path: /
+    purpose: convert_visitors
+    sections:
+      - hero
+      - services
+      - doctors
+      - testimonials
+      - faq
+      - appointment
+      - contact
+
+  services:
+    path: /services
+    purpose: explain_services
+    sections:
+      - services
+      - faq
+      - appointment
+
+  about:
+    path: /about
+    purpose: build_trust
+    sections:
+      - clinic
+      - doctors
+      - certifications
+      - testimonials
+
+  contact:
+    path: /contact
+    purpose: enable_contact
+    sections:
+      - contact
+      - opening_hours
+      - location
+      - directions
+
+  appointment:
+    path: /appointment
+    purpose: capture_appointment_request
+    sections:
+      - appointment
+      - faq
+
+navigation:
+  primary:
+    - home
+    - services
+    - about
+    - contact
+
+  primary_cta:
+    label: Book an Appointment
+    target: appointment
+
+footer:
+  links:
+    - home
+    - services
+    - about
+    - contact
+    - appointment

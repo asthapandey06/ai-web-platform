@@ -1,0 +1,33 @@
+{
+  "name": "ai-web-platform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/generator/generate.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asthapandey06/ai-web-platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/asthapandey06/ai-web-platform/issues"
+  },
+  "homepage": "https://github.com/asthapandey06/ai-web-platform#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "yaml": "^2.9.1"
+  }
+}
