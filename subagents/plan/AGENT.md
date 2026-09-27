@@ -30,6 +30,10 @@ Turn a client requirement into an executable implementation plan before coding b
 12. Identify missing information that must be clarified.
 13. Identify risks and technical unknowns.
 14. Keep the MVP scope explicit.
+15. Inspect root `components/` for reusable frontend capabilities.
+16. Inspect root `core/` for reusable backend capabilities.
+17. Identify whether new functionality belongs in the client project or should become reusable WebsiteOS capability.
+18. Respect the root dependency-management strategy.
 
 ## Planning Order
 

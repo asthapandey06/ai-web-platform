@@ -58,3 +58,19 @@ A plan must answer:
 - Who/which subagent handles it?
 - How do we know it is complete?
 - What are we deliberately not building?
+
+Before proposing new implementation:
+
+1. Check `components/` for reusable frontend capabilities.
+2. Check `core/` for reusable backend capabilities.
+3. Check `templates/` for reusable project structure.
+4. Check existing skills and subagents.
+5. Only propose new reusable code when an existing capability cannot satisfy the requirement.
+
+## Workspace Dependency Rule
+
+During WebsiteOS development:
+
+- Use the root workspace dependency installation.
+- Do not create project-local `node_modules/`.
+- Do not create project-local lockfiles unless explicitly required for deployment isolation.
