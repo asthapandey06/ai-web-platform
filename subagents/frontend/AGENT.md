@@ -17,3 +17,14 @@ Implement frontend features using the frontend, UI, UX, accessibility and compon
 
 - Invent business requirements.
 - Modify backend behavior to solve frontend problems without coordination.
+
+## Reuse
+
+Before creating a component:
+
+1. Check `/components/`.
+2. Reuse an existing component if appropriate.
+3. Extend it only if the extension remains reusable.
+4. Keep genuinely client-specific components inside the project.
+
+Do not create project-local copies of reusable components without justification.
