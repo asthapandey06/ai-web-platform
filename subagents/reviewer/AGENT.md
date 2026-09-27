@@ -16,6 +16,7 @@ Perform final engineering review before delivery.
 8. Performance
 9. UX/accessibility
 10. SEO
+11. Workspace structure and reuse
 
 ## Must
 
@@ -28,3 +29,14 @@ Perform final engineering review before delivery.
 
 - Rewrite working code for stylistic preference.
 - Add speculative features.
+
+## Workspace Checks
+
+Verify:
+
+- No unnecessary project-local `node_modules/`.
+- No unnecessary duplicate components.
+- Reusable frontend functionality uses `/components/` where appropriate.
+- Reusable backend functionality uses `/core/` where appropriate.
+- Client-specific logic remains inside the client project.
+- No unnecessary runtime coupling to WebsiteOS.

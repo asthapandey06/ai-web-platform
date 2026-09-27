@@ -23,11 +23,37 @@ Do not build platform features without a demonstrated need.
 - `components/` contains reusable website components.
 - `templates/` contains reusable website starting points.
 - `automation/` contains website/business workflow definitions.
-- `projects/` contains generated/client websites.
 - `src/` contains WebsiteOS engine code.
 - `config/` contains schemas and configuration.
 - `docs/` contains architecture and process documentation.
 - `scripts/` contains development and generation utilities.
+- `core/` contains reusable backend engineering primitives and infrastructure.
+- `components/` contains reusable website components.
+- `projects/` contains generated/client websites and business applications.
+
+
+## Workspace and Project Structure
+
+WebsiteOS is the root development workspace and dependency manager.
+
+- Root `node_modules/` is the default dependency installation location.
+- Client projects must not create their own `node_modules/` during WebsiteOS development.
+- Client projects may contain `package.json` files describing their dependencies.
+- Do not create separate lockfiles inside client projects unless a real deployment requirement requires isolated dependency management.
+
+Reusable code ownership:
+
+- `components/` contains reusable frontend/UI components.
+- `core/` contains reusable backend engineering primitives and infrastructure.
+- `skills/` contains reusable engineering/domain knowledge.
+- `subagents/` contains reusable execution responsibilities.
+- `templates/` contains reusable project starting structures.
+- `projects/` contains independent client projects.
+- `src/` contains WebsiteOS engine code.
+
+Client projects may copy/adapt reusable WebsiteOS components and core capabilities, but must remain independent after generation.
+
+Do not make a generated client project depend directly on WebsiteOS source files at runtime unless explicitly required by the architecture.
 
 ## Agent Rules
 

@@ -19,3 +19,11 @@
 - Do not put integration logic directly in routes.
 - Handle errors explicitly.
 - Add tests for business-critical behavior.
+
+## Reuse
+
+- Check the root `core/` library before implementing common backend infrastructure.
+- Reuse existing database, HTTP, validation, error handling, logging, queue, webhook and integration primitives where appropriate.
+- Keep business-specific domain logic inside the client project.
+- Do not move client-specific business logic into `core/`.
+- Extract functionality into `core/` only when it is genuinely reusable.
