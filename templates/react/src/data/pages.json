@@ -1,0 +1,37 @@
+{
+  "home": {
+    "path": "/",
+    "purpose": "Template homepage",
+    "sections": []
+  },
+  "services": {
+    "path": "/services",
+    "purpose": "Template services page",
+    "sections": []
+  },
+  "about": {
+    "path": "/about",
+    "purpose": "Template about page",
+    "sections": []
+  },
+  "contact": {
+    "path": "/contact",
+    "purpose": "Template contact page",
+    "sections": []
+  },
+  "appointment": {
+    "path": "/appointment",
+    "purpose": "Template appointment page",
+    "sections": []
+  },
+  "navigation": {
+    "primary": [],
+    "primary_cta": {
+      "label": "Get Started",
+      "target": "/"
+    }
+  },
+  "footer": {
+    "links": []
+  }
+}

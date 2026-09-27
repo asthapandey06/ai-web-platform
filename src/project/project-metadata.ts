@@ -23,6 +23,18 @@ export interface FeatureMetadata {
     features: Record<string, FeatureRecord>;
 }
 
+export interface FeatureRecord {
+    id: string;
+    name: string;
+    description: string;
+    status: "pending" | "accepted";
+    version: number;
+    source: "websiteos" | "developer";
+    protected: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
 function getWebsiteOSPath(projectPath: string): string {
     return path.resolve(
         process.cwd(),
@@ -193,4 +205,16 @@ export function acceptFeature(
     );
 
     return feature;
+}
+
+export function getProtectedFeatures(
+    projectPath: string
+): FeatureRecord[] {
+    const metadata = loadFeatures(projectPath);
+
+    return Object.values(metadata.features).filter(
+        (feature) =>
+            feature.status === "accepted" &&
+            feature.protected === true
+    );
 }

@@ -2,60 +2,148 @@ import { loadAgentInstructions } from "./agent-loader.js";
 import { callLLM } from "./llm-client.js";
 import { validateWebsiteSpec } from "./spec-validator.js";
 import {
-    getCachedResponse,
-    setCachedResponse,
+  getCachedResponse,
+  setCachedResponse,
 } from "./ai-cache.js";
 
 export interface WebsiteSpec {
-    domain: Record<string, unknown>;
-    pages: Record<string, unknown>;
-    services: Record<string, unknown>;
-    workflows: Record<string, unknown>;
+  domain: Record<string, unknown>;
+  pages: Record<string, unknown>;
+  services: Record<string, unknown>;
+  workflows: Record<string, unknown>;
 }
 
 export async function runDomainAgent(
-    businessBrief: string
+  businessBrief: string
 ): Promise<WebsiteSpec> {
-    const cached = getCachedResponse<WebsiteSpec>(
-        "domain-agent",
-        businessBrief
-    );
+  const cached = getCachedResponse<WebsiteSpec>(
+    "domain-agent",
+    businessBrief
+  );
 
-    if (cached) {
-        console.log("/n ✓ Domain specification loaded from cache");
-        return cached;
-    }
-    const agentInstructions =
-        loadAgentInstructions("domain");
+  if (cached) {
+    console.log("\n ✓ Domain specification loaded from cache");
+    return cached;
+  }
+  const agentInstructions =
+    loadAgentInstructions("domain");
 
-    const systemPrompt = `
+  const systemPrompt = `
 You are the WebsiteOS Domain Agent.
 
-Follow these instructions exactly:
+Your job is to transform the user's business brief into a WebsiteSpec.
 
-${agentInstructions}
+You determine:
+- business type
+- business goal
+- relevant website pages
+- relevant website sections
+- relevant business actions
 
-Your job is to transform the business brief into a
-WebsiteOS domain specification.
-
-IMPORTANT:
-
-You are NOT designing an application architecture.
+You do NOT design technical architecture.
 
 Do NOT invent:
 - APIs
 - endpoints
 - databases
 - backend services
-- calendar integrations
+- integrations
 - payment systems
-- authentication systems
+- authentication
 - infrastructure
-- technical architectures
+- technical architecture
 
-Return ONLY valid JSON.
+The user's business brief is the ONLY source of truth for business facts.
 
-The JSON MUST follow this exact structure:
+Do not invent:
+- addresses
+- phone numbers
+- email addresses
+- WhatsApp numbers
+- prices
+- products
+- medicine categories
+- services
+- doctors
+- credentials
+- reviews
+- opening hours
+- guarantees
+- policies
+- certifications
+- delivery claims
+- payment capabilities
+- business workflows
+
+If the user did not provide a business fact, do not create it.
+
+IMPORTANT:
+The Domain Agent determines STRUCTURE, not final website content.
+
+Section objects MUST contain only a type:
+
+{
+  "type": "section_type"
+}
+
+Do not put titles, descriptions, items, URLs, addresses, phone
+numbers, products, prices, or other business facts inside sections.
+
+Supported section types:
+
+- hero
+- services
+- trust
+- cta
+- appointment_form
+- contact
+- whatsapp_cta
+- medicine_categories
+
+Only select sections appropriate to the user's actual brief.
+
+Do not assume:
+- dental clinic
+- medical store
+- restaurant
+- salon
+- appointment booking
+- online ordering
+- delivery
+- payment
+- WhatsApp
+
+unless the user's brief supports them.
+
+For example:
+
+User:
+"Create a website for a medical store showing medicine categories,
+contact details and address, connected with WhatsApp."
+
+Appropriate sections could include:
+
+{
+  "type": "hero"
+}
+
+{
+  "type": "medicine_categories"
+}
+
+{
+  "type": "contact"
+}
+
+{
+  "type": "whatsapp_cta"
+}
+
+Do NOT invent the medicine categories, address, phone number,
+WhatsApp number, products, delivery service, pharmacist details,
+or opening hours.
+
+WebsiteSpec structure:
 
 {
   "domain": {
@@ -80,175 +168,117 @@ The JSON MUST follow this exact structure:
   },
 
   "pages": {
-    "pages": {
-      "page_id": {
-        "path": "string",
-        "purpose": "string",
-        "sections": []
-      }
-    },
-    "navigation": {
-      "primary": [],
-      "primary_cta": {
-        "label": "string",
-        "target": "string"
-      }
-    },
-    "footer": {
-      "links": []
-    }
-  },
-
-  "services": {
-    "services": [
-      {
-        "id": "string",
-        "name": "string",
-        "description": "string",
-        "featured": true
-      }
-    ],
-    "rules": {
-      "use_placeholders_when_client_data_missing": true
-    }
-  },
-
-  The "workflows" property MUST have this exact structure:
-
-"workflows": {
-  "workflows": {
-    "appointment_request": {
-      "trigger": {
-        "type": "form_submission",
-        "form": "appointment"
-      },
-      "steps": [
+    "page-id": {
+      "path": "string",
+      "purpose": "string",
+      "sections": [
         {
-          "validate": {
-            "required": [
-              "name",
-              "phone"
-            ]
-          }
-        },
-        {
-          "create_lead": {
-            "status": "new"
-          }
-        },
-        {
-          "notify_clinic": {
-            "channel": "email"
-          }
+          "type": "string"
         }
       ]
     }
   },
-  "rules": []
+
+  "services": {},
+
+  "workflows": {}
 }
 
+Rules:
 
-}
-The value of workflows.workflows MUST ALWAYS be an object/map.
-Never return an array for workflows.workflows.
-STRICT RULES:
+1. Return ONLY valid JSON.
+2. Do not use markdown.
+3. Do not add explanations before or after JSON.
+4. Do not add top-level properties.
+5. Pages are dynamic.
+6. Only create pages relevant to the business brief.
+7. Only create services explicitly supported by the brief.
+8. Only create workflows explicitly supported by the brief.
+9. Do not automatically create appointment functionality.
+10. Do not automatically create a services page.
+11. Do not automatically create an about page.
+12. Do not automatically create a contact page unless relevant.
+13. Do not automatically create WhatsApp functionality unless requested.
+14. Do not invent business facts.
+15. Section objects contain ONLY "type".
+16. Page IDs, service IDs and workflow IDs are object keys.
+17. Services are directly under "services".
+18. Workflows are directly under "workflows".
+19. Pages are directly under "pages".
 
-1. Follow the structure above exactly.
-2. Do not add top-level keys.
-3. Do not replace arrays with objects.
-4. Do not invent API endpoints.
-5. Do not invent client-specific facts.
-6. Use placeholders when information is missing.
-7. Do not invent pricing, reviews, doctors, credentials,
-   addresses, opening hours or certifications.
-8. Workflows describe business workflows, not technical APIs.
-9. Pages describe website pages, not software architecture.
-10. Services describe business services, not backend services.
-11. Return JSON only.
-12. Never invent services that were not provided by the user.
-13. Never invent service descriptions containing specific treatments,
-    procedures, guarantees, outcomes, or medical claims.
-14. If service information is missing, use:
-    "Placeholder service description."
-15. Never invent business policies or constraints.
-16. Only include facts explicitly provided by the user.
-17. Recommendations such as suggested trust elements must be marked
-    as recommendations, not presented as existing business facts.
-18. Do not invent workflow integrations.
-19. Only describe workflows that can be supported by the information in the business brief.
-20. Use placeholders where required information is missing.
+OUTPUT ONLY THE JSON OBJECT.
 `;
 
-    const response = await callLLM([
-        {
-            role: "system",
-            content: systemPrompt,
-        },
-        {
-            role: "user",
-            content: businessBrief,
-        },
-    ]);
+  const response = await callLLM([
+    {
+      role: "system",
+      content: systemPrompt,
+    },
+    {
+      role: "user",
+      content: businessBrief,
+    },
+  ]);
 
-    const spec = parseWebsiteSpec(response);
+  const spec = parseWebsiteSpec(response);
 
-    validateWebsiteSpec(spec);
+  validateWebsiteSpec(spec);
 
-    setCachedResponse(
-        "domain-agent",
-        businessBrief,
-        spec
-    );
+  setCachedResponse(
+    "domain-agent",
+    businessBrief,
+    spec
+  );
 
-    return spec;
+  return spec;
 }
 
 function parseWebsiteSpec(
-    response: string
+  response: string
 ): WebsiteSpec {
-    let cleaned = response.trim();
+  let cleaned = response.trim();
 
-    // Remove markdown code fences.
-    cleaned = cleaned
-        .replace(/^```json\s*/i, "")
-        .replace(/^```\s*/i, "")
-        .replace(/\s*```$/i, "")
-        .trim();
+  // Remove markdown code fences.
+  cleaned = cleaned
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
 
-    // If the model added text before/after JSON,
-    // extract the JSON object.
-    const firstBrace = cleaned.indexOf("{");
-    const lastBrace = cleaned.lastIndexOf("}");
+  // If the model added text before/after JSON,
+  // extract the JSON object.
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
 
-    if (firstBrace !== -1 && lastBrace > firstBrace) {
-        cleaned = cleaned.slice(
-            firstBrace,
-            lastBrace + 1
-        );
-    }
+  if (firstBrace !== -1 && lastBrace > firstBrace) {
+    cleaned = cleaned.slice(
+      firstBrace,
+      lastBrace + 1
+    );
+  }
 
-    let parsed: unknown;
+  let parsed: unknown;
 
-    try {
-        parsed = JSON.parse(cleaned);
-    } catch {
-        throw new Error(
-            `Domain agent returned invalid JSON:\n${response}`
-        );
-    }
+  try {
+    parsed = JSON.parse(cleaned);
+  } catch {
+    throw new Error(
+      `Domain agent returned invalid JSON:\n${response}`
+    );
+  }
 
-    if (
-        typeof parsed !== "object" ||
-        parsed === null ||
-        !("domain" in parsed) ||
-        !("pages" in parsed) ||
-        !("services" in parsed) ||
-        !("workflows" in parsed)
-    ) {
-        throw new Error(
-            "Domain agent returned an invalid WebsiteSpec"
-        );
-    }
+  if (
+    typeof parsed !== "object" ||
+    parsed === null ||
+    !("domain" in parsed) ||
+    !("pages" in parsed) ||
+    !("services" in parsed) ||
+    !("workflows" in parsed)
+  ) {
+    throw new Error(
+      "Domain agent returned an invalid WebsiteSpec"
+    );
+  }
 
-    return parsed as WebsiteSpec;
+  return parsed as WebsiteSpec;
 }

@@ -10,23 +10,27 @@ interface PageDefinition {
   sections?: string[];
 }
 
-interface PagesConfig {
-  pages?: Record<string, PageDefinition>;
-}
-
 export function generatePages(
   project: ProjectConfig,
   domain: DomainConfig
 ): void {
-  const pagesConfig = domain.pages as PagesConfig;
+  const pages = domain.pages as Record<
+    string,
+    PageDefinition
+  >;
 
-  if (!pagesConfig.pages) {
-    throw new Error("No pages defined in domain configuration");
+  if (!pages || Object.keys(pages).length === 0) {
+    throw new Error(
+      "No pages defined in domain configuration"
+    );
   }
 
-  const directory = path.join(project.outputPath, "pages");
+  const directory = path.join(
+    project.outputPath,
+    "pages"
+  );
 
-  for (const [pageId, page] of Object.entries(pagesConfig.pages)) {
+  for (const [pageId, page] of Object.entries(pages)) {
     writeJsonFile(directory, `${pageId}.json`, {
       id: pageId,
       ...page,

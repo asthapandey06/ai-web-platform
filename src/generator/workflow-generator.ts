@@ -7,20 +7,22 @@ import { writeJsonFile } from "./json-generator.js";
 interface WorkflowDefinition {
   trigger?: Record<string, unknown>;
   steps?: unknown[];
-}
-
-interface WorkflowsConfig {
-  workflows?: Record<string, WorkflowDefinition>;
+  [key: string]: unknown;
 }
 
 export function generateWorkflows(
   project: ProjectConfig,
   domain: DomainConfig
 ): void {
-  const workflowsConfig = domain.workflows as WorkflowsConfig;
+  const workflows = domain.workflows as Record<
+    string,
+    WorkflowDefinition
+  >;
 
-  if (!workflowsConfig.workflows) {
-    throw new Error("No workflows defined in domain configuration");
+  if (!workflows || Object.keys(workflows).length === 0) {
+    throw new Error(
+      "No workflows defined in domain configuration"
+    );
   }
 
   const directory = path.join(
@@ -29,11 +31,15 @@ export function generateWorkflows(
   );
 
   for (const [workflowId, workflow] of Object.entries(
-    workflowsConfig.workflows
+    workflows
   )) {
-    writeJsonFile(directory, `${workflowId}.json`, {
-      id: workflowId,
-      ...workflow,
-    });
+    writeJsonFile(
+      directory,
+      `${workflowId}.json`,
+      {
+        id: workflowId,
+        ...workflow,
+      }
+    );
   }
 }

@@ -10,9 +10,13 @@ import { validateWebsiteSpec } from "./spec-validator.js";
 import { specToDomain } from "./spec-to-domain.js";
 import { generateFromSpec } from "../generator/generate-from-spec.js";
 import { generateReactProject } from "../generator/template-generator.js";
+import { startPreview } from "../preview/preview-project.js";
 
-import { ensureProjectMetadata } from "../project/project-metadata.js";
-import { registerPendingFeature } from "../project/project-metadata.js";
+import {
+    ensureProjectMetadata,
+    getProtectedFeatures,
+    registerPendingFeature,
+} from "../project/project-metadata.js";
 
 import { createFeatureSnapshot } from "../project/project-snapshot.js";
 import { createFeatureId } from "../project/feature-id.js";
@@ -25,22 +29,24 @@ const command = args[0];
 if (
     command !== "create" &&
     command !== "update" &&
-    command !== "accept"
+    command !== "accept" &&
+    command !== "preview"
 ) {
     throw new Error(
         'Usage:\n' +
         '  npm run ai:generate -- create "<project-name>" "<business brief>"\n' +
         '  npm run ai:generate -- update "<project-name>" "<change request>"\n' +
-        '  npm run ai:generate -- accept "<project-name>" "<feature-id>"'
+        '  npm run ai:generate -- accept "<project-name>" "<feature-id>"' +
+        '  npm run ai:generate -- preview "<project-name>"'
     );
 }
 
 const projectId = args[1]?.trim();
 const request = args.slice(2).join(" ").trim();
 
-if (!projectId || !request) {
+if (!projectId) {
     throw new Error(
-        `Missing project name or request for command "${command}".`
+        `Missing project name for command "${command}".`
     );
 }
 
@@ -85,6 +91,7 @@ if (command === "accept") {
 
 const isCreate = command === "create";
 const isUpdate = command === "update";
+const isPreview = command === "preview";
 
 // --------------------------------------------------
 // CREATE / UPDATE validation
@@ -160,13 +167,13 @@ if (isCreate) {
 
     console.log(
         `✓ Pages: ${Object.keys(
-            (domain.pages.pages ?? {}) as Record<string, unknown>
+            (domain.pages ?? {}) as Record<string, unknown>
         ).length}`
     );
 
     console.log(
-        `✓ Services: ${Array.isArray(domain.services.services)
-            ? domain.services.services.length
+        `✓ Services: ${Array.isArray(domain.services)
+            ? domain.services.length
             : 0
         }`
     );
@@ -203,9 +210,17 @@ if (isUpdate) {
         "→ Reading existing WebsiteOS specification"
     );
 
+    const protectedFeatures =
+        getProtectedFeatures(projectPath);
+
+    console.log(
+        `→ Protected features: ${protectedFeatures.length}`
+    );
+
     const update = await runUpdateAgent(
         existingSpec,
-        request
+        request,
+        protectedFeatures
     );
 
     console.log(
@@ -323,34 +338,47 @@ if (isUpdate) {
     }
 }
 
+/**
+ * Preview the generated project.
+ * This is a LOCAL operation.
+ * No AI.
+ * No generation.
+ * No project regeneration.
+ */
+if (isPreview) {
+  const projectName = process.argv[3];
+
+  if (!projectName) {
+    throw new Error(
+      "Usage: npm run ai:generate -- preview <project-name>"
+    );
+  }
+
+  const projectPath = path.resolve(
+    process.cwd(),
+    "projects",
+    projectName
+  );
+
+  console.log(`✓ Previewing project: ${projectName}`);
+
+  startPreview({
+    projectPath,
+  });
+
+  process.exit(0);
+}
+
 // ==================================================
 // FINAL OUTPUT
 // ==================================================
 
-if (isCreate) {
-    // ... existing create logic
+console.log(
+    `\n✓ AI specification ready: ${specPath}`
+);
 
-    console.log(
-        `\n✓ AI specification ready: ${specPath}`
-    );
-
-    console.log(
-        `✓ Domain: ${String(
-            spec?.domain?.name ?? "Unnamed"
-        )}`
-    );
-}
-
-if (isUpdate) {
-    // ... existing update logic
-
-    console.log(
-        `\n✓ AI specification ready: ${specPath}`
-    );
-
-    console.log(
-        `✓ Domain: ${String(
-            spec?.domain?.name ?? "Unnamed"
-        )}`
-    );
-}
+console.log(
+    `✓ Domain: ${String(
+        spec?.domain?.name ?? "Unnamed"
+    )}`
+);

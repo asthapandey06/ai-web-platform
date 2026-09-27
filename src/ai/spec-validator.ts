@@ -8,44 +8,45 @@ export function validateWebsiteSpec(
     }
 
     if (!isObject(spec.domain)) {
-        throw new Error("WebsiteSpec.domain must be an object");
+        throw new Error(
+            "WebsiteSpec.domain must be an object"
+        );
     }
 
     if (!isObject(spec.pages)) {
-        throw new Error("WebsiteSpec.pages must be an object");
+        throw new Error(
+            "WebsiteSpec.pages must be an object"
+        );
     }
 
     if (!isObject(spec.services)) {
-        throw new Error("WebsiteSpec.services must be an object");
+        throw new Error(
+            "WebsiteSpec.services must be an object"
+        );
     }
 
     if (!isObject(spec.workflows)) {
-        throw new Error("WebsiteSpec.workflows must be an object");
-    }
-
-    if (!isObject(spec.pages.pages)) {
         throw new Error(
-            "WebsiteSpec.pages.pages must be an object"
+            "WebsiteSpec.workflows must be an object"
         );
     }
 
-    if (!Array.isArray(spec.services.services)) {
-        throw new Error(
-            "WebsiteSpec.services.services must be an array"
-        );
-    }
+    validatePages(spec.pages);
+    validateServices(spec.services);
+    validateWorkflows(spec.workflows);
+}
 
-    if (!isObject(spec.workflows.workflows)) {
-        throw new Error(
-            `WebsiteSpec.workflows.workflows must be an object, received: ${JSON.stringify(
-                spec.workflows.workflows
-            )}`
-        );
-    }
+function validatePages(
+    pages: Record<string, unknown>
+): void {
+    for (const [id, page] of Object.entries(pages)) {
+        if (
+            id === "navigation" ||
+            id === "footer"
+        ) {
+            continue;
+        }
 
-    for (const [id, page] of Object.entries(
-        spec.pages.pages
-    )) {
         if (!isObject(page)) {
             throw new Error(`Invalid page: ${id}`);
         }
@@ -68,29 +69,41 @@ export function validateWebsiteSpec(
             );
         }
     }
+}
 
-    for (const service of spec.services.services) {
-        if (!isObject(service)) {
-            throw new Error("Invalid service");
-        }
-
-        if (typeof service.id !== "string") {
-            throw new Error(
-                "Service must have an id"
-            );
-        }
-
-        if (typeof service.name !== "string") {
-            throw new Error(
-                `Service ${service.id} must have a name`
-            );
-        }
+function validateServices(
+  services: Record<string, unknown>
+): void {
+  for (const [id, service] of Object.entries(services)) {
+    if (!isObject(service)) {
+      throw new Error(
+        `Invalid service: ${id}`
+      );
     }
+
+    if (typeof service.name !== "string") {
+      throw new Error(
+        `Service ${id} must have a name`
+      );
+    }
+  }
+}
+
+function validateWorkflows(
+  workflows: Record<string, unknown>
+): void {
+  for (const [id, workflow] of Object.entries(workflows)) {
+    if (!isObject(workflow)) {
+      throw new Error(
+        `Invalid workflow: ${id}`
+      );
+    }
+  }
 }
 
 function isObject(
     value: unknown
-): value is Record<string, any> {
+): value is Record<string, unknown> {
     return (
         typeof value === "object" &&
         value !== null &&

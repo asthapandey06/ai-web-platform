@@ -1,0 +1,20 @@
+{
+  "id": "template",
+  "name": "WebsiteOS Template",
+  "version": 1,
+  "business": {
+    "type": "template",
+    "primary_goal": "Demonstrate WebsiteOS UI"
+  },
+  "audience": [],
+  "primary_actions": [],
+  "content": {
+    "required": []
+  },
+  "trust": {
+    "recommended": []
+  },
+  "automation": {},
+  "seo": {},
+  "constraints": []
+}

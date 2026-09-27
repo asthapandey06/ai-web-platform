@@ -1,0 +1,7 @@
+{
+  "template-service": {
+    "name": "Example Service",
+    "description": "Example service content for template development.",
+    "featured": true
+  }
+}

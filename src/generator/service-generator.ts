@@ -5,33 +5,42 @@ import type { ProjectConfig } from "../core/project-config.js";
 import { writeJsonFile } from "./json-generator.js";
 
 interface ServiceDefinition {
-  id: string;
   name: string;
   description?: string;
   featured?: boolean;
-}
-
-interface ServicesConfig {
-  services?: ServiceDefinition[];
+  [key: string]: unknown;
 }
 
 export function generateServices(
   project: ProjectConfig,
   domain: DomainConfig
 ): void {
-  const servicesConfig = domain.services as ServicesConfig;
+  const services = domain.services as Record<
+    string,
+    ServiceDefinition
+  >;
 
-  if (!servicesConfig.services) {
-    throw new Error("No services defined in domain configuration");
+  if (!services || Object.keys(services).length === 0) {
+    throw new Error(
+      "No services defined in domain configuration"
+    );
   }
 
-  const directory = path.join(project.outputPath, "services");
+  const directory = path.join(
+    project.outputPath,
+    "services"
+  );
 
-  for (const service of servicesConfig.services) {
+  for (const [serviceId, service] of Object.entries(
+    services
+  )) {
     writeJsonFile(
       directory,
-      `${service.id}.json`,
-      service
+      `${serviceId}.json`,
+      {
+        id: serviceId,
+        ...service,
+      }
     );
   }
 }
