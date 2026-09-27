@@ -3,10 +3,11 @@
 ## Mission
 
 WebsiteOS is an internal AI-assisted production system for creating automated,
-conversion-focused business websites.
+conversion-focused business websites and business systems.
 
-The first objective is to produce a dental clinic demo that can be used to
-acquire the first paying client.
+The objective is to make client project delivery significantly faster through
+reusable skills, subagents, components, templates, integrations and proven
+engineering patterns.
 
 ## Primary Rule
 
@@ -56,9 +57,27 @@ The generated websites should prioritize:
 A website should not be treated as merely a static brochure when automation
 can provide meaningful customer value.
 
-## Dental Demo Priority
+## Project Priority
 
-The first demo should demonstrate:
+### Local Store — Stage 2
+
+The first implementation project should demonstrate:
+
+Website
+→ product/category discovery
+→ customer ordering
+→ location/delivery rules
+→ WhatsApp/customer communication
+→ repeat-customer rewards
+→ relevant business automation
+
+Keep the implementation focused on the actual local-store requirements.
+
+Do not build a generic AI platform, CRM, ecommerce platform, or multi-tenant SaaS.
+
+### Dental Clinic — Stage 3
+
+The second implementation project should demonstrate:
 
 Website
 → visitor questions
@@ -66,8 +85,7 @@ Website
 → appointment request/booking workflow
 → clinic-side notification
 
-Do not build a generic AI platform, CRM, booking platform, or multi-tenant SaaS
-as part of the first demo.
+Use the project to validate which Local Store capabilities are genuinely reusable across business types.
 
 ## AI / Lovable Boundary
 
