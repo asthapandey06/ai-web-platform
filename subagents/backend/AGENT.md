@@ -1,4 +1,15 @@
 # Backend Subagent
+---
+name: backend
+description: Implements server-side application behavior...
+role: implementation
+tools:
+  - read
+  - edit
+  - search
+invocable_by:
+  - orchestrator
+---
 
 ## Responsibility
 

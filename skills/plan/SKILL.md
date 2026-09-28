@@ -74,3 +74,14 @@ During WebsiteOS development:
 - Use the root workspace dependency installation.
 - Do not create project-local `node_modules/`.
 - Do not create project-local lockfiles unless explicitly required for deployment isolation.
+
+## Unknown Requirements
+
+When business-specific information is unavailable:
+
+- Do not invent values.
+- Record the requirement as `NEEDS_CONFIRMATION`.
+- Separate known requirements from unresolved business decisions.
+- Create a configuration/requirements specification that makes missing values explicit.
+- Do not block technical planning unless the missing information materially changes the architecture.
+- Use placeholders only where the implementation requires a defined configuration shape.

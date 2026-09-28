@@ -11,7 +11,13 @@
     "build": "tsc",
     "dev": "tsx src/generator/generate.ts",
     "ai:generate": "tsx src/ai/generate-ai-website.ts",
-    "template:build": "vite build --config templates/react/vite.config.ts"
+    "template:build": "vite build --config templates/react/vite.config.ts",
+    "local-store:client:dev": "vite --config projects/local-store/client/vite.config.ts",
+    "local-store:server:dev": "tsx watch projects/local-store/server/src/index.ts",
+    "local-store:client:build": "vite build --config projects/local-store/client/vite.config.ts",
+    "local-store:server:build": "tsc -p projects/local-store/server/tsconfig.json",
+    "local-store:typecheck": "tsc --noEmit -p projects/local-store/client/tsconfig.json && tsc --noEmit -p projects/local-store/server/tsconfig.json",
+    "local-store:build": "npm run local-store:client:build && npm run local-store:server:build"
   },
   "repository": {
     "type": "git",
@@ -25,7 +31,12 @@
   },
   "homepage": "https://github.com/asthapandey06/ai-web-platform#readme",
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/cookie-parser": "^1.4.9",
     "@types/node": "^26.6.3",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^5.0.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
@@ -33,6 +44,9 @@
   },
   "dependencies": {
     "dotenv": "^18.0.4",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.2.1",
+    "pg": "^8.23.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "yaml": "^2.9.1"
