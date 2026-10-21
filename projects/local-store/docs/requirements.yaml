@@ -1,0 +1,457 @@
+specification:
+  id: local-store
+  title: Local Store business requirements and configuration
+  version: 2
+  status: requirements_capture
+  purpose: >
+    Separate confirmed Local Store functionality, merchant-configured values,
+    subscription/add-on entitlements, operational services, and unresolved
+    business or technical decisions. This is a requirements document, not
+    runtime configuration.
+
+  status_values:
+    confirmed: Explicitly stated in the client requirements or approved Stage 2 brief.
+    needs_confirmation: A business, policy, or technical decision has not been supplied.
+
+  guardrails:
+    - Client requirements are authoritative; do not invent values or policies.
+    - Do not invent products, prices, delivery fees, GST rules, reward values, or integrations.
+    - Do not assume a barcode product-data source, WhatsApp provider, payment provider, billing provider, hosting provider, or NPL meaning/implementation.
+    - Do not build a generic ecommerce platform, multi-tenancy, generic CRM, or microservices.
+    - Keep client business logic in this independent project with no WebsiteOS runtime dependency.
+    - Keep WebsiteOS as the root dependency manager; no project-local node_modules or lockfile unless deployment isolation is demonstrated as necessary.
+    - Reuse /components and /core only where a demonstrated fit exists; do not create speculative reusable core functionality.
+    - Do not extract Local Store patterns into WebsiteOS during this project.
+
+  confirmed_business_model:
+    merchant:
+      confirmed:
+        - Merchant registration.
+        - Merchant login and logout.
+        - Merchant-facing inventory, scanner, and settings tabs.
+        - A dashboard tab is available when the sales-dashboard add-on is enabled.
+        - Merchants can configure inventory quantity and price.
+        - Merchants can enable or disable automated WhatsApp messages.
+        - Merchants can connect a WhatsApp Business account.
+        - Merchants can configure the minimum order value for free delivery.
+        - Merchants can configure fixed delivery pricing based on distance.
+        - Merchants can enable auto-decline for orders containing unavailable stock.
+        - Merchants can enable unavailable-stock alerts.
+      unresolved:
+        merchant_count_and_account_boundary:
+          status: NEEDS_CONFIRMATION
+          project_configuration: false
+          note: >
+            Registration is required, while multi-tenancy is prohibited. Confirm
+            whether this is a single-store deployment/account or another
+            non-multi-tenant registration model before choosing data isolation.
+        registration_access_and_verification:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        merchant_roles_and_permissions:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        password_reset_and_account_recovery:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+    customer:
+      confirmed:
+        - Customers can view the catalog through WhatsApp.
+        - Customers can browse/select products from the catalog.
+        - Customers can place orders through NPL when that add-on is enabled.
+        - The system validates stock before accepting an order.
+        - Customers see an order summary.
+        - GST is included when applicable according to merchant configuration/rules.
+        - Delivery charges are applied according to merchant settings.
+        - The customer pays for the order and can download a receipt.
+      unresolved:
+        customer_identification_and_verification:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        checkout_contact_and_delivery_fields:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        stock_decrement_or_reservation_timing:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        customer_order_statuses_and_cancellation_behavior:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+
+  software_functionality:
+    inventory:
+      confirmed:
+        - Merchant can add a new SKU manually.
+        - Merchant can initiate barcode scanning using a camera.
+        - A scan fetches product details only when a compatible product-data source is available.
+        - Merchant can enter or update quantity and price.
+        - Inventory updates are reflected in the customer catalog and stock validation.
+        - Unavailable stock can cause automatic order decline when the merchant setting is enabled.
+        - Unavailable-stock alerts can be enabled by the merchant.
+      unresolved:
+        sku_fields_and_uniqueness_rules:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        product_data_source_api_and_supported_barcodes:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+          technical_dependency: true
+        alert_channel_recipient_and_trigger:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        out_of_stock_and_concurrent_order_policy:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+    catalog:
+      confirmed:
+        - The customer catalog is based on merchant-managed inventory.
+        - Customers can view and select catalog products.
+        - Catalog access through WhatsApp is required.
+      unresolved:
+        product_copy_images_categories_and_options:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        catalog_visibility_and_availability_rules:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        whatsapp_catalog_sync_or_native_display_behavior:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+    order_processing:
+      confirmed_flow:
+        - Customer or WhatsApp entry.
+        - Catalog browsing and product selection; NPL may be used when enabled.
+        - Stock validation before order acceptance.
+        - Order calculation.
+        - GST application when applicable under merchant configuration/rules.
+        - Delivery calculation from merchant settings.
+        - Order confirmation.
+        - Payment.
+        - Downloadable receipt.
+      confirmed:
+        - When configured to auto-decline, orders with unavailable stock are declined.
+        - Customers receive an order summary before order completion.
+      unresolved:
+        meaning_of_order_confirmation_and_exact_state_transitions:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        order_identifier_and_receipt_contents:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        payment_failure_retry_and_cancellation_behavior:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+    tax:
+      confirmed:
+        - GST is included when applicable according to merchant configuration/rules.
+      unresolved:
+        merchant_tax_configuration_fields:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        applicability_and_calculation_rules:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        rates_and_receipt_or_invoice_requirements:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+          note: No tax rate or legal treatment is supplied by this specification.
+    delivery:
+      confirmed:
+        - Delivery charges are determined by merchant settings.
+        - Merchant configures fixed delivery pricing based on distance.
+        - The Stage 2 brief requires free delivery within a configured radius and charges beyond that radius.
+        - Merchant configures a minimum order value for free delivery.
+      unresolved:
+        delivery_origin_and_location_capture:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        distance_calculation_method_and_units:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        distance_bands_and_fixed_prices:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        free_delivery_radius_and_minimum_threshold_logic:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+          note: Confirm interaction of radius and order minimum; do not infer edge-case behavior.
+        maximum_service_distance_and_out_of_area_behavior:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+    payment_and_receipt:
+      confirmed:
+        - Customer payment for an order is required.
+        - Customer can download a receipt.
+      unresolved:
+        payment_provider_and_methods:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+          technical_dependency: true
+        payment_capture_timing_and_order_payment_states:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        refund_and_cancellation_policy:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        receipt_format_and_tax_document_status:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+
+  whatsapp:
+    confirmed:
+      - Customers can view the catalog through WhatsApp.
+      - Merchant can connect a WhatsApp Business account.
+      - Merchant can enable or disable automated WhatsApp messages.
+      - WhatsApp customer communication is part of the Stage 2 requirements.
+    unresolved:
+      whatsapp_business_api_or_provider:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+        technical_dependency: true
+      account_connection_and_authorization_flow:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      catalog_delivery_or_sync_capability:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      automated_message_events_content_and_consent:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      failure_retry_and_duplicate_handling:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+
+  npl:
+    confirmed:
+      - NPL ordering is available only when the NPL add-on is enabled.
+      - Preserve the requirement name exactly as NPL.
+    unresolved:
+      meaning_and_scope_of_npl:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      technical_implementation_or_provider:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+        technical_dependency: true
+      order_data_contract_and_availability:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+
+  rewards:
+    confirmed:
+      - Repeat-customer points/rewards are part of the Stage 2 baseline.
+    unresolved:
+      customer_identification:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      earning_redemption_eligibility_and_timing:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      points_values_and_expiry:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+
+  subscription_and_entitlements:
+    confirmed:
+      - Monthly subscription price is ₹1,000/month.
+      - Subscription includes monthly app/website maintenance.
+      - Subscription includes SEO maintenance.
+      - Add-ons are priced at ₹500 per feature.
+      - Sales dashboard is an add-on and, when enabled, appears as a merchant tab.
+      - Existing billing-system integration is an add-on when its API is available.
+      - NPL ordering is an add-on.
+      - Add-on feature availability is conditional on that add-on being enabled.
+    unresolved:
+      subscription_payment_provider_and_collection:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      subscription_start_renewal_cancellation_and_failed_payment_rules:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      add_on_charge_period_and_billing_behavior:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+        note: The ₹500 per feature amount is confirmed; one-time vs recurring is not specified.
+      add_on_catalog_and_entitlement_activation_process:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      exact_scope_of_monthly_maintenance_and_seo_service:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+    add_ons:
+      sales_dashboard:
+        confirmed:
+          - Weekly, monthly, and yearly sales graphs.
+        unresolved:
+          metrics_and_date_boundaries:
+            status: NEEDS_CONFIRMATION
+            project_configuration: true
+      billing_system_integration:
+        confirmed:
+          - Integrate the existing billing system when its API is available.
+        unresolved:
+          billing_system_identity_and_api_access:
+            status: NEEDS_CONFIRMATION
+            project_configuration: true
+            technical_dependency: true
+          api_capabilities_and_data_contract:
+            status: NEEDS_CONFIRMATION
+            project_configuration: true
+      npl_ordering:
+        confirmed:
+          - NPL ordering when enabled.
+        unresolved:
+          see: npl
+    operational_services:
+      confirmed:
+        - Monthly app/website maintenance is included in the subscription.
+        - Monthly SEO maintenance is included in the subscription.
+      not_software_features:
+        - Ongoing maintenance labor and service delivery.
+        - Ongoing SEO maintenance labor and service delivery.
+      unresolved:
+        service_scope_schedule_and_reporting:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+        responsible_party_and_support_process:
+          status: NEEDS_CONFIRMATION
+          project_configuration: true
+
+  legacy_stage_2_requirements:
+    confirmed:
+      - Product/category browsing and online ordering.
+      - Location-dependent delivery with free delivery within a configured radius and charges beyond it.
+      - Minimum-order rules where required.
+      - WhatsApp customer communication.
+      - Repeat-customer points/rewards.
+      - Customer/business automation only where it provides clear value.
+
+  project_configuration_register:
+    note: >
+      Client-configurable values belong in Local Store project configuration or
+      merchant settings as indicated. Do not introduce defaults for unknown values.
+    merchant_settings:
+      - inventory quantity and product price
+      - automated WhatsApp messages enabled/disabled
+      - minimum order value for free delivery
+      - distance-based fixed delivery prices and configured free-delivery radius
+      - GST configuration/rules once supplied
+      - auto-decline unavailable-stock orders enabled/disabled
+      - unavailable-stock alerts enabled/disabled
+      - enabled subscription add-ons/entitlements
+    project_configuration:
+      - business identity, contact/location details, catalog metadata and approved content
+      - delivery origin, location/distance method, service limits, and delivery price bands
+      - payment provider settings and order payment behavior
+      - WhatsApp Business connection and approved communication settings
+      - barcode product-data source settings, if a supported source is approved
+      - existing billing system/API settings, if available and approved
+      - NPL implementation settings after its meaning and interface are defined
+      - rewards policy and customer identification/verification settings
+      - hosting, domain, runtime, database connection, and deployment settings
+
+  architecture_and_workspace:
+    confirmed:
+      - Independent client project; no WebsiteOS runtime dependency.
+      - Single modular application; no microservices.
+      - React + TypeScript + Vite frontend.
+      - Node.js + TypeScript + Express backend.
+      - PostgreSQL database.
+      - WebsiteOS root dependency management.
+      - No project-local node_modules or lockfile unless deployment isolation is actually required.
+      - Reuse /components and /core where justified; avoid speculative shared functionality.
+    unresolved:
+      hosting_provider_runtime_and_environment:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      production_domain_release_owner_and_backup_requirements:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+      deployment_specific_topology_and_secrets:
+        status: NEEDS_CONFIRMATION
+        project_configuration: true
+
+  reusable_patterns_for_later_review:
+    status: do_not_extract_during_local_store
+    candidates:
+      - product/category browsing
+      - inventory and SKU management
+      - distance-based delivery configuration
+      - order calculation and receipt generation
+      - messaging/integration adapters
+      - subscription entitlement checks
+      - points/rewards accounting
+
+blockers:
+  business_or_policy:
+    - id: merchant_account_model
+      blocks:
+        - secure registration and account data boundaries
+      decisions:
+        - confirm merchant count/account boundary consistent with the prohibition on multi-tenancy
+        - registration access, verification, roles, and recovery
+    - id: catalog_and_inventory_policy
+      blocks:
+        - finished product data and catalog presentation
+        - barcode detail lookup
+        - stock contention behavior
+      decisions:
+        - SKU fields and uniqueness
+        - approved product data and catalog details
+        - out-of-stock/concurrent-order and stock decrement timing
+        - alert channel and recipient
+    - id: delivery_and_tax_rules
+      blocks:
+        - production order calculation
+      decisions:
+        - delivery origin, location capture, distance units/method
+        - free radius, price bands, charges, service limit
+        - interaction between delivery radius and minimum order for free delivery
+        - applicable GST configuration/rules/rates and receipt tax details
+    - id: payment_and_receipt
+      blocks:
+        - payment execution and downloadable receipt production
+      decisions:
+        - payment provider/methods and capture lifecycle
+        - failure, refund, and cancellation behavior
+        - receipt format and tax-document requirements
+    - id: whatsapp_integration
+      blocks:
+        - WhatsApp account connection, catalog delivery/sync, automated messaging
+      decisions:
+        - provider/API/account access and supported catalog/message capabilities
+        - message content/events, consent, and retry behavior
+    - id: npl_definition
+      blocks:
+        - implementation of NPL order intake
+      decisions:
+        - preserve NPL name; clarify meaning, interface/provider, and data contract
+    - id: subscription_and_add_on_operations
+      blocks:
+        - automated subscription billing and automated entitlement lifecycle
+      decisions:
+        - subscription collection provider and lifecycle rules
+        - whether ₹500 add-on charge is one-time or recurring
+        - add-on activation/deactivation process
+        - operational scope and owner for monthly maintenance and SEO maintenance
+    - id: billing_system_integration
+      blocks:
+        - add-on integration with the existing billing system
+      decisions:
+        - identify system and confirm API access/capabilities
+  technical_or_deployment:
+    - id: barcode_product_data_source
+      blocks:
+        - automatic lookup of product details after scan
+      decisions:
+        - supported barcode product-data source/API, coverage, access, and terms
+    - id: hosting_and_release
+      blocks:
+        - production deployment only
+      decisions:
+        - hosting provider/environment, production domain, release owner, backup/recovery needs
+  non_blocking_for_provider_independent_work:
+    - Hosting decisions do not block project structure, UI/domain design, manual inventory, or local development.
+    - Barcode source decisions do not block implementing camera-based barcode capture; they block automatic product lookup.
+    - WhatsApp provider decisions do not block merchant settings UI or provider-neutral workflow design; they block account connection and message delivery.
+    - Payment provider decisions block real payment processing, not order-summary or calculation design.

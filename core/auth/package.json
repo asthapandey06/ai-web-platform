@@ -1,0 +1,14 @@
+{
+  "name": "@websiteos/auth-crypto",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/crypto.js",
+  "types": "./dist/crypto.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/crypto.d.ts",
+      "import": "./dist/crypto.js"
+    }
+  }
+}

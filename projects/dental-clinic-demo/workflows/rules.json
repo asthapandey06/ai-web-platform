@@ -1,0 +1,6 @@
+{
+  "0": "Do not claim an appointment is confirmed unless the clinic actually confirms it.",
+  "1": "Failed notifications must not silently discard the lead.",
+  "2": "Form submissions must be validated server-side.",
+  "id": "rules"
+}

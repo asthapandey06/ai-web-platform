@@ -1,0 +1,13 @@
+{
+  "id": "navigation",
+  "primary": [
+    "home",
+    "services",
+    "about",
+    "contact"
+  ],
+  "primary_cta": {
+    "label": "Book an Appointment",
+    "target": "appointment"
+  }
+}

@@ -8,15 +8,16 @@
     "doc": "docs"
   },
   "scripts": {
+    "core:auth:build": "tsc -p core/auth/tsconfig.json",
     "build": "tsc",
     "dev": "tsx src/generator/generate.ts",
     "ai:generate": "tsx src/ai/generate-ai-website.ts",
     "template:build": "vite build --config templates/react/vite.config.ts",
     "local-store:client:dev": "vite --config projects/local-store/client/vite.config.ts",
-    "local-store:server:dev": "tsx watch projects/local-store/server/src/index.ts",
+    "local-store:server:dev": "npm run core:auth:build && tsx watch projects/local-store/server/src/index.ts",
     "local-store:client:build": "vite build --config projects/local-store/client/vite.config.ts",
-    "local-store:server:build": "tsc -p projects/local-store/server/tsconfig.json",
-    "local-store:typecheck": "tsc --noEmit -p projects/local-store/client/tsconfig.json && tsc --noEmit -p projects/local-store/server/tsconfig.json",
+    "local-store:server:build": "npm run core:auth:build && tsc -p projects/local-store/server/tsconfig.json",
+    "local-store:typecheck": "npm run core:auth:build && tsc --noEmit -p projects/local-store/client/tsconfig.json && tsc --noEmit -p projects/local-store/server/tsconfig.json",
     "local-store:build": "npm run local-store:client:build && npm run local-store:server:build"
   },
   "repository": {
@@ -43,6 +44,7 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
+    "@websiteos/auth-crypto": "file:core/auth",
     "dotenv": "^18.0.4",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",

@@ -1,0 +1,10 @@
+{
+  "id": "footer",
+  "links": [
+    "home",
+    "services",
+    "about",
+    "contact",
+    "appointment"
+  ]
+}

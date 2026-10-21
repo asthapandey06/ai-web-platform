@@ -1,0 +1,33 @@
+{
+  "0": {
+    "id": "general_dentistry",
+    "name": "General Dentistry",
+    "description": "Placeholder service description.",
+    "featured": true
+  },
+  "1": {
+    "id": "preventive_care",
+    "name": "Preventive Care",
+    "description": "Placeholder service description.",
+    "featured": true
+  },
+  "2": {
+    "id": "cosmetic_dentistry",
+    "name": "Cosmetic Dentistry",
+    "description": "Placeholder service description.",
+    "featured": true
+  },
+  "3": {
+    "id": "restorative_dentistry",
+    "name": "Restorative Dentistry",
+    "description": "Placeholder service description.",
+    "featured": false
+  },
+  "4": {
+    "id": "emergency_dental_care",
+    "name": "Emergency Dental Care",
+    "description": "Placeholder service description.",
+    "featured": false
+  },
+  "id": "services"
+}

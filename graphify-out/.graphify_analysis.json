@@ -1,0 +1,527 @@
+{
+  "communities": {
+    "0": [
+      "package",
+      "package_author",
+      "package_bugs",
+      "package_bugs_url",
+      "package_dependencies",
+      "package_dependencies_dotenv",
+      "package_dependencies_express",
+      "package_dependencies_pg",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_yaml",
+      "package_description",
+      "package_devdependencies",
+      "package_devdependencies_tsx",
+      "package_devdependencies_types_express",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_pg",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_react",
+      "package_directories",
+      "package_directories_doc",
+      "package_homepage",
+      "package_json_ref_react",
+      "package_json_ref_vite",
+      "package_keywords",
+      "package_license",
+      "package_main",
+      "package_name",
+      "package_repository",
+      "package_repository_type",
+      "package_repository_url",
+      "package_type",
+      "package_version",
+      "projects_local_store_server_src_db_pool",
+      "projects_local_store_server_src_db_pool_getdatabasepool",
+      "ref_pg",
+      "ref_tsx",
+      "ref_types_express",
+      "ref_types_node",
+      "ref_types_pg",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_typescript",
+      "ref_yaml"
+    ],
+    "1": [
+      "ref_node_fs",
+      "ref_node_path",
+      "src_ai_domain_agent_websitespec",
+      "src_ai_spec_to_domain",
+      "src_ai_spec_to_domain_spectodomain",
+      "src_core_domain_loader",
+      "src_core_domain_loader_domainconfig",
+      "src_core_domain_loader_loaddomain",
+      "src_core_domain_loader_loadyaml",
+      "src_core_project_config",
+      "src_core_project_config_createprojectconfig",
+      "src_core_project_config_projectconfig",
+      "src_generator_data_generator",
+      "src_generator_data_generator_generatereactdata",
+      "src_generator_generate",
+      "src_generator_generate_config",
+      "src_generator_generate_domain",
+      "src_generator_generate_from_spec",
+      "src_generator_generate_from_spec_generatefromspec",
+      "src_generator_json_generator",
+      "src_generator_json_generator_writejsonfile",
+      "src_generator_page_generator",
+      "src_generator_page_generator_generatepages",
+      "src_generator_page_generator_pagedefinition",
+      "src_generator_project_writer",
+      "src_generator_project_writer_writeproject",
+      "src_generator_service_generator",
+      "src_generator_service_generator_generateservices",
+      "src_generator_service_generator_servicedefinition",
+      "src_generator_template_generator",
+      "src_generator_template_generator_generatereactproject",
+      "src_generator_workflow_generator",
+      "src_generator_workflow_generator_generateworkflows",
+      "src_generator_workflow_generator_workflowdefinition"
+    ],
+    "2": [
+      "ref_node_child_process",
+      "src_ai_generate_ai_website",
+      "src_ai_generate_ai_website_absoluteprojectpath",
+      "src_ai_generate_ai_website_args",
+      "src_ai_generate_ai_website_projectexists",
+      "src_ai_generate_ai_website_projectid",
+      "src_ai_generate_ai_website_projectpath",
+      "src_ai_generate_ai_website_rationale_262",
+      "src_ai_generate_ai_website_request",
+      "src_ai_generate_ai_website_specpath",
+      "src_preview_preview_project",
+      "src_preview_preview_project_previewoptions",
+      "src_preview_preview_project_runningprojects",
+      "src_preview_preview_project_startpreview",
+      "src_project_accept_feature",
+      "src_project_accept_feature_acceptprojectfeature",
+      "src_project_feature_id",
+      "src_project_feature_id_createfeatureid",
+      "src_project_project_metadata",
+      "src_project_project_metadata_acceptfeature",
+      "src_project_project_metadata_ensureprojectmetadata",
+      "src_project_project_metadata_featuremetadata",
+      "src_project_project_metadata_getfeaturespath",
+      "src_project_project_metadata_getprotectedfeatures",
+      "src_project_project_metadata_getwebsiteospath",
+      "src_project_project_metadata_loadfeatures",
+      "src_project_project_metadata_projectmetadata",
+      "src_project_project_metadata_registerpendingfeature",
+      "src_project_project_metadata_savefeatures",
+      "src_project_project_snapshot",
+      "src_project_project_snapshot_createfeaturesnapshot"
+    ],
+    "3": [
+      "ref_react_dom",
+      "templates_react_src_app",
+      "templates_react_src_app_app",
+      "templates_react_src_app_navigation",
+      "templates_react_src_app_service",
+      "templates_react_src_app_serviceentries",
+      "templates_react_src_app_trustitems",
+      "templates_react_src_components_layout_footer",
+      "templates_react_src_components_layout_footer_footer",
+      "templates_react_src_components_layout_footer_footerprops",
+      "templates_react_src_components_layout_header",
+      "templates_react_src_components_layout_header_header",
+      "templates_react_src_components_layout_header_headerprops",
+      "templates_react_src_components_sections_cta",
+      "templates_react_src_components_sections_cta_cta",
+      "templates_react_src_components_sections_cta_ctaprops",
+      "templates_react_src_components_sections_hero",
+      "templates_react_src_components_sections_hero_hero",
+      "templates_react_src_components_sections_hero_heroprops",
+      "templates_react_src_components_sections_services",
+      "templates_react_src_components_sections_services_services",
+      "templates_react_src_components_sections_services_servicesprops",
+      "templates_react_src_components_sections_trust",
+      "templates_react_src_components_sections_trust_trust",
+      "templates_react_src_components_sections_trust_trustprops",
+      "templates_react_src_data_domain",
+      "templates_react_src_data_pages",
+      "templates_react_src_data_services",
+      "templates_react_src_main",
+      "templates_react_src_styles"
+    ],
+    "4": [
+      "ref_node_crypto",
+      "src_ai_agent_loader",
+      "src_ai_agent_loader_loadagentinstructions",
+      "src_ai_ai_cache",
+      "src_ai_ai_cache_cache_dir",
+      "src_ai_ai_cache_getcachedresponse",
+      "src_ai_ai_cache_getcachekey",
+      "src_ai_ai_cache_setcachedresponse",
+      "src_ai_domain_agent",
+      "src_ai_domain_agent_parsewebsitespec",
+      "src_ai_domain_agent_rundomainagent",
+      "src_ai_llm_client",
+      "src_ai_llm_client_callllm",
+      "src_ai_llm_client_llmmessage",
+      "src_ai_llm_client_llmresponse",
+      "src_ai_spec_updater",
+      "src_ai_spec_updater_applywebsitespecupdate",
+      "src_ai_spec_updater_deepmerge",
+      "src_ai_spec_updater_isobject",
+      "src_ai_spec_updater_merge",
+      "src_ai_update_agent",
+      "src_ai_update_agent_parseupdate",
+      "src_ai_update_agent_runupdateagent",
+      "src_ai_update_agent_websitespecupdate",
+      "src_project_project_metadata_featurerecord"
+    ],
+    "5": [
+      "package_json_ref_react_dom",
+      "package_json_ref_vitejs_plugin_react",
+      "templates_react_package",
+      "templates_react_package_dependencies",
+      "templates_react_package_dependencies_react",
+      "templates_react_package_dependencies_react_dom",
+      "templates_react_package_dependencies_vite",
+      "templates_react_package_dependencies_vitejs_plugin_react",
+      "templates_react_package_devdependencies",
+      "templates_react_package_json_ref_react",
+      "templates_react_package_json_ref_vite",
+      "templates_react_package_name",
+      "templates_react_package_private",
+      "templates_react_package_scripts",
+      "templates_react_package_scripts_build",
+      "templates_react_package_scripts_dev",
+      "templates_react_package_type",
+      "templates_react_package_version"
+    ],
+    "6": [
+      "projects_local_store_client_tsconfig",
+      "projects_local_store_client_tsconfig_compileroptions",
+      "projects_local_store_client_tsconfig_compileroptions_allowimportingtsextensions",
+      "projects_local_store_client_tsconfig_compileroptions_esmoduleinterop",
+      "projects_local_store_client_tsconfig_compileroptions_isolatedmodules",
+      "projects_local_store_client_tsconfig_compileroptions_jsx",
+      "projects_local_store_client_tsconfig_compileroptions_lib",
+      "projects_local_store_client_tsconfig_compileroptions_module",
+      "projects_local_store_client_tsconfig_compileroptions_moduleresolution",
+      "projects_local_store_client_tsconfig_compileroptions_noemit",
+      "projects_local_store_client_tsconfig_compileroptions_resolvejsonmodule",
+      "projects_local_store_client_tsconfig_compileroptions_skiplibcheck",
+      "projects_local_store_client_tsconfig_compileroptions_strict",
+      "projects_local_store_client_tsconfig_compileroptions_target",
+      "projects_local_store_client_tsconfig_compileroptions_types",
+      "projects_local_store_client_tsconfig_compileroptions_usedefineforclassfields",
+      "projects_local_store_client_tsconfig_include"
+    ],
+    "7": [
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_forceconsistentcasinginfilenames",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_outdir",
+      "tsconfig_compileroptions_paths",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_rootdir",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_types",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ],
+    "8": [
+      "components_layout_container",
+      "components_layout_container_containerprops",
+      "projects_local_store_client_src_app",
+      "projects_local_store_client_src_app_app",
+      "projects_local_store_client_src_main",
+      "projects_local_store_client_src_main_rootelement",
+      "projects_local_store_client_src_styles",
+      "ref_react",
+      "templates_react_src_components_forms_appointmentform",
+      "templates_react_src_components_forms_appointmentform_appointmentform",
+      "templates_react_src_components_forms_appointmentform_appointmentform_handlesubmit",
+      "templates_react_src_components_forms_appointmentform_appointmentformprops",
+      "templates_react_src_components_layout_container",
+      "templates_react_src_components_layout_container_container",
+      "templates_react_src_components_layout_container_containerprops"
+    ],
+    "9": [
+      "projects_local_store_server_tsconfig",
+      "projects_local_store_server_tsconfig_compileroptions",
+      "projects_local_store_server_tsconfig_compileroptions_esmoduleinterop",
+      "projects_local_store_server_tsconfig_compileroptions_forceconsistentcasinginfilenames",
+      "projects_local_store_server_tsconfig_compileroptions_module",
+      "projects_local_store_server_tsconfig_compileroptions_moduleresolution",
+      "projects_local_store_server_tsconfig_compileroptions_outdir",
+      "projects_local_store_server_tsconfig_compileroptions_rootdir",
+      "projects_local_store_server_tsconfig_compileroptions_skiplibcheck",
+      "projects_local_store_server_tsconfig_compileroptions_strict",
+      "projects_local_store_server_tsconfig_compileroptions_target",
+      "projects_local_store_server_tsconfig_compileroptions_types",
+      "projects_local_store_server_tsconfig_include"
+    ],
+    "10": [
+      "package_scripts",
+      "package_scripts_ai_generate",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_local_store_build",
+      "package_scripts_local_store_client_build",
+      "package_scripts_local_store_client_dev",
+      "package_scripts_local_store_server_build",
+      "package_scripts_local_store_server_dev",
+      "package_scripts_local_store_typecheck",
+      "package_scripts_template_build"
+    ],
+    "11": [
+      "ref_dotenv",
+      "src_ai_orchestrator",
+      "src_ai_orchestrator_generatewebsitespec",
+      "src_ai_progress",
+      "src_ai_progress_finishprogress",
+      "src_ai_progress_frames",
+      "src_ai_progress_startprogress",
+      "src_ai_spec_writer",
+      "src_ai_spec_writer_writewebsitespec",
+      "src_ai_test_ai"
+    ],
+    "12": [
+      "projects_local_store_server_src_app",
+      "projects_local_store_server_src_app_app",
+      "projects_local_store_server_src_config_port",
+      "projects_local_store_server_src_config_port_getport",
+      "projects_local_store_server_src_index",
+      "projects_local_store_server_src_index_port",
+      "projects_local_store_server_src_index_server",
+      "ref_express"
+    ],
+    "13": [
+      "projects_local_store_client_vite_config",
+      "projects_local_store_client_vite_config_projectroot",
+      "ref_node_url",
+      "ref_vite",
+      "ref_vitejs_plugin_react",
+      "templates_react_vite_config"
+    ],
+    "14": [
+      "src_ai_spec_validator",
+      "src_ai_spec_validator_isobject",
+      "src_ai_spec_validator_validatepages",
+      "src_ai_spec_validator_validateservices",
+      "src_ai_spec_validator_validatewebsitespec",
+      "src_ai_spec_validator_validateworkflows"
+    ],
+    "15": [
+      "src_config_env",
+      "src_config_env_env",
+      "src_config_env_getenv",
+      "src_config_index"
+    ],
+    "16": [
+      "components_forms_appointmentform",
+      "components_forms_appointmentform_appointmentformprops"
+    ],
+    "17": [
+      "components_layout_footer",
+      "components_layout_footer_footerprops"
+    ],
+    "18": [
+      "components_layout_header",
+      "components_layout_header_headerprops"
+    ],
+    "19": [
+      "components_sections_cta",
+      "components_sections_cta_ctaprops"
+    ],
+    "20": [
+      "components_sections_hero",
+      "components_sections_hero_heroprops"
+    ],
+    "21": [
+      "components_sections_services",
+      "components_sections_services_servicesprops"
+    ],
+    "22": [
+      "components_sections_trust",
+      "components_sections_trust_trustprops"
+    ]
+  },
+  "cohesion": {
+    "0": 0.0425531914893617,
+    "1": 0.16934046345811052,
+    "2": 0.11397849462365592,
+    "3": 0.09655172413793103,
+    "4": 0.15666666666666668,
+    "5": 0.1111111111111111,
+    "6": 0.11764705882352941,
+    "7": 0.11764705882352941,
+    "8": 0.14285714285714285,
+    "9": 0.15384615384615385,
+    "10": 0.18181818181818182,
+    "11": 0.35555555555555557,
+    "12": 0.32142857142857145,
+    "13": 0.4,
+    "14": 0.8,
+    "15": 0.6666666666666666,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0
+  },
+  "gods": [
+    {
+      "id": "projects_local_store_client_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 15
+    },
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 14
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 11
+    },
+    {
+      "id": "projects_local_store_server_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 11
+    },
+    {
+      "id": "src_ai_domain_agent_rundomainagent",
+      "label": "runDomainAgent()",
+      "degree": 9
+    },
+    {
+      "id": "src_ai_spec_validator_validatewebsitespec",
+      "label": "validateWebsiteSpec()",
+      "degree": 8
+    },
+    {
+      "id": "templates_react_src_app_app",
+      "label": "App()",
+      "degree": 8
+    },
+    {
+      "id": "src_ai_domain_agent_websitespec",
+      "label": "WebsiteSpec",
+      "degree": 7
+    },
+    {
+      "id": "src_core_domain_loader_domainconfig",
+      "label": "DomainConfig",
+      "degree": 7
+    },
+    {
+      "id": "src_core_project_config_projectconfig",
+      "label": "ProjectConfig",
+      "degree": 7
+    }
+  ],
+  "surprises": [
+    {
+      "source": "generateWebsiteSpec()",
+      "target": "runDomainAgent()",
+      "source_files": [
+        "src/ai/orchestrator.ts",
+        "src/ai/domain-agent.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "runDomainAgent()",
+      "target": "validateWebsiteSpec()",
+      "source_files": [
+        "src/ai/domain-agent.ts",
+        "src/ai/spec-validator.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "generateFromSpec()",
+      "target": "specToDomain()",
+      "source_files": [
+        "src/generator/generate-from-spec.ts",
+        "src/ai/spec-to-domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "generateFromSpec()",
+      "target": "createProjectConfig()",
+      "source_files": [
+        "src/generator/generate-from-spec.ts",
+        "src/core/project-config.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "generateFromSpec()",
+      "target": "generateReactData()",
+      "source_files": [
+        "src/generator/generate-from-spec.ts",
+        "src/generator/data-generator.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `dotenv` connect `orchestrator.ts` to `package.json`, `generate.ts`, `generate-ai-website.ts`?",
+      "why": "High betweenness centrality (0.181) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `scripts` connect `scripts` to `package.json`?",
+      "why": "High betweenness centrality (0.042) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `PageDefinition`, `ServiceDefinition`, `WorkflowDefinition` to the rest of the system?",
+      "why": "145 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `package.json` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.0425531914893617 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `generate-ai-website.ts` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11397849462365592 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `react/src/App.tsx` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09655172413793103 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `react/package.json` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

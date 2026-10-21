@@ -1,0 +1,277 @@
+{
+  "domain": {
+    "domain": {
+      "id": "dental-clinic",
+      "name": "Dental Clinic",
+      "version": 1
+    },
+    "business": {
+      "type": "local_service",
+      "primary_goal": "generate_appointment_leads"
+    },
+    "audience": [
+      "new_patients",
+      "existing_patients",
+      "people_researching_dental_services"
+    ],
+    "primary_actions": [
+      "book_appointment",
+      "request_callback",
+      "call_clinic",
+      "get_directions"
+    ],
+    "content": {
+      "required": [
+        "clinic_name",
+        "clinic_description",
+        "services",
+        "doctors",
+        "opening_hours",
+        "location",
+        "contact_information"
+      ]
+    },
+    "pages": {
+      "required": [
+        "home",
+        "services",
+        "about",
+        "contact",
+        "appointment"
+      ]
+    },
+    "trust": {
+      "recommended": [
+        "doctor_credentials",
+        "testimonials",
+        "clinic_photos",
+        "certifications",
+        "insurance_information",
+        "faq"
+      ]
+    },
+    "automation": {
+      "lead_capture": true,
+      "appointment_request": true,
+      "clinic_notification": true
+    },
+    "seo": {
+      "local_business": true,
+      "schema_type": "Dentist"
+    },
+    "constraints": [
+      "Do not invent doctors, credentials, reviews, pricing, certifications, addresses, opening hours, or medical claims.",
+      "Use placeholders when client-specific information is unavailable.",
+      "Keep medical information informational and non-diagnostic."
+    ]
+  },
+  "pages": {
+    "pages": {
+      "home": {
+        "path": "/",
+        "purpose": "convert_visitors",
+        "sections": [
+          "hero",
+          "services",
+          "doctors",
+          "testimonials",
+          "faq",
+          "appointment",
+          "contact"
+        ]
+      },
+      "services": {
+        "path": "/services",
+        "purpose": "explain_services",
+        "sections": [
+          "services",
+          "faq",
+          "appointment"
+        ]
+      },
+      "about": {
+        "path": "/about",
+        "purpose": "build_trust",
+        "sections": [
+          "clinic",
+          "doctors",
+          "certifications",
+          "testimonials"
+        ]
+      },
+      "contact": {
+        "path": "/contact",
+        "purpose": "enable_contact",
+        "sections": [
+          "contact",
+          "opening_hours",
+          "location",
+          "directions"
+        ]
+      },
+      "appointment": {
+        "path": "/appointment",
+        "purpose": "capture_appointment_request",
+        "sections": [
+          "appointment",
+          "faq"
+        ]
+      }
+    },
+    "navigation": {
+      "primary": [
+        "home",
+        "services",
+        "about",
+        "contact"
+      ],
+      "primary_cta": {
+        "label": "Book an Appointment",
+        "target": "appointment"
+      }
+    },
+    "footer": {
+      "links": [
+        "home",
+        "services",
+        "about",
+        "contact",
+        "appointment"
+      ]
+    }
+  },
+  "services": {
+    "services": [
+      {
+        "id": "general_dentistry",
+        "name": "General Dentistry",
+        "description": "Placeholder service description.",
+        "featured": true
+      },
+      {
+        "id": "preventive_care",
+        "name": "Preventive Care",
+        "description": "Placeholder service description.",
+        "featured": true
+      },
+      {
+        "id": "cosmetic_dentistry",
+        "name": "Cosmetic Dentistry",
+        "description": "Placeholder service description.",
+        "featured": true
+      },
+      {
+        "id": "restorative_dentistry",
+        "name": "Restorative Dentistry",
+        "description": "Placeholder service description.",
+        "featured": false
+      },
+      {
+        "id": "emergency_dental_care",
+        "name": "Emergency Dental Care",
+        "description": "Placeholder service description.",
+        "featured": false
+      }
+    ],
+    "rules": {
+      "use_placeholders_when_client_data_missing": true,
+      "do_not_invent_medical_claims": true,
+      "do_not_invent_pricing": true
+    }
+  },
+  "workflows": {
+    "workflows": {
+      "appointment_request": {
+        "trigger": {
+          "type": "form_submission",
+          "form": "appointment"
+        },
+        "steps": [
+          {
+            "validate": {
+              "required": [
+                "name",
+                "phone",
+                "preferred_date",
+                "preferred_time"
+              ]
+            }
+          },
+          {
+            "create_lead": {
+              "status": "new"
+            }
+          },
+          {
+            "notify_clinic": {
+              "channel": "email"
+            }
+          },
+          {
+            "show_confirmation": {
+              "message": "Your appointment request has been received. The clinic will contact you to confirm the appointment."
+            }
+          }
+        ]
+      },
+      "callback_request": {
+        "trigger": {
+          "type": "form_submission",
+          "form": "callback"
+        },
+        "steps": [
+          {
+            "validate": {
+              "required": [
+                "name",
+                "phone"
+              ]
+            }
+          },
+          {
+            "create_lead": {
+              "status": "callback_requested"
+            }
+          },
+          {
+            "notify_clinic": {
+              "channel": "email"
+            }
+          }
+        ]
+      },
+      "contact_form": {
+        "trigger": {
+          "type": "form_submission",
+          "form": "contact"
+        },
+        "steps": [
+          {
+            "validate": {
+              "required": [
+                "name",
+                "email",
+                "message"
+              ]
+            }
+          },
+          {
+            "create_lead": {
+              "status": "contact_request"
+            }
+          },
+          {
+            "notify_clinic": {
+              "channel": "email"
+            }
+          }
+        ]
+      }
+    },
+    "rules": [
+      "Do not claim an appointment is confirmed unless the clinic actually confirms it.",
+      "Failed notifications must not silently discard the lead.",
+      "Form submissions must be validated server-side."
+    ]
+  }
+}
